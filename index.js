@@ -14,7 +14,7 @@ function productView(productCard, product) {
   if (!product.organic) output = output.replace(/{%NOT_ORGANIC%}/g, "not-organic");
   return output;
 }
-const allproductTemplate = fs.readFileSync("./templates/overview.html", "utf-8");
+const allproductTemplate = fs.readFileSync("./index.html", "utf-8");
 const productDetailTemplate = fs.readFileSync("./templates/product.html", "utf-8");
 const productCard = fs.readFileSync("./templates/productCard.html", "utf-8");
 const data = fs.readFileSync("./dev-data/data.json", "utf-8");
