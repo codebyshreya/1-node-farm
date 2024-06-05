@@ -1,6 +1,7 @@
 const http = require("http");
 const url = require("url");
 const fs = require("fs");
+
 function productView(productCard, product) {
   let output = productCard.replace(/{%PRODUCTNAME%}/g, product.productName);
   output = output.replace(/{%IMAGE%}/g, product.image);
@@ -22,9 +23,20 @@ const products = JSON.parse(data);
 
 const server = http.createServer((req, res) => {
   const { query, pathname } = url.parse(req.url, true);
+  if (pathname === "/johnty") {
+    const sampleData = {
+      id: 1,
+      name: "John Doe",
+      email: "john.doe@example.com",
+    };
+    res.statusCode = 200;
+    res.setHeader("Content-Type", "application/json");
+    res.end(JSON.stringify(products));
 
+    console.log("johnty");
+  }
   // product overview
-  if (pathname === "/" || pathname === "/overview") {
+  else if (pathname === "/" || pathname === "/overview") {
     res.writeHead(200, {
       "Content-type": "text/html",
     });
@@ -35,9 +47,9 @@ const server = http.createServer((req, res) => {
 
   // product details
   else if (pathname === "/product") {
-    res.writeHead(200, {
-      "Content-type": "text/html",
-    });
+    // res.writeHead(200, {
+    //   "Content-type": "text/html",
+    // });
     const productItem = products[query.id];
     const output = productView(productDetailTemplate, productItem);
     res.end(output);
